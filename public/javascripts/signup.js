@@ -4,13 +4,10 @@ $(() => {
 
         const username = e.target.uid.value
         const pass = e.target.pass.value
-        const passConf = e.target.passconf.value
-
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     
+        const passConf = e.target.passconf.value     
 
         if (pass != passConf) {
-            alert("passwords do not match!")
+            $('#errorField').html("Passwords do not match")
         } else {
             firebase.auth().createUserWithEmailAndPassword(username, pass)
                 .then((userCredential) => {
@@ -22,6 +19,7 @@ $(() => {
                 .catch((error) => {
                     var errorCode = error.code;
                     var errorMessage = error.message;
+                    $('#errorField').html(errorMessage)
                     // ..
                     console.log(errorMessage)
                 });
