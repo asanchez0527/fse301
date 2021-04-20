@@ -18,7 +18,8 @@ $(() => {
           displayName: user.uid
         },
         configOverwrite: {
-          prejoinPageEnabled: false
+          prejoinPageEnabled: false,
+          disableDeepLinking: true
         },
         parentNode: document.querySelector('#meet')
       };

@@ -10,13 +10,6 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
-const serviceAccount = require('./serviceAccountKey.json')
-
-
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount)
-})
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
