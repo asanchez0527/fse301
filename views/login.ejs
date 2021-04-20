@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head', {title: 'Log in' }) %>
+        <script src="javascripts/login.js"></script>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('partials/header') %>
+    </header>
+
+    <main>
+        <div class="d-flex justify-content-center">
+            <form id="login">
+                <label for="uid">User ID</label><br>
+                <input id="uid" type="email"><br><br>
+                <label for="pass">Password</label><br>
+                <input id="pass" type="password"><br><br>
+                <div class="d-flex justify-content-center">
+                    <button>Log in</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('partials/footer') %>
+    </footer>
+
+</body>
+
+</html>

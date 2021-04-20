@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head', {title: 'Register' }) %>
+        <script src="javascripts/signup.js"></script>
+</head>
+
+<body class="container">
+
+    <header>
+        <%- include('partials/header') %>
+    </header>
+
+    <main>
+        <div class="d-flex justify-content-center">
+            <form id="register">
+                <label for="uid">Email</label><br>
+                <input id="uid" type="email"><br><br>
+                <label for="pass">Password</label><br>
+                <input id="pass" type="password"><br><br>
+                <label for="passconf">Confirm password</label><br>
+                <input id="passconf" type="password"><br><br>
+                <div class="d-flex justify-content-center">
+                    <button>Register</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('partials/footer') %>
+    </footer>
+
+</body>
+
+</html>
