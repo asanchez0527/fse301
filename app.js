@@ -4,8 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var firebase = require('firebase-admin')
-
 var indexRouter = require('./routes/index');
 
 var app = express();
