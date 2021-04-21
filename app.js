@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var enforce = require('express-sslify');
 var indexRouter = require('./routes/index');
 
 var app = express();
@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(enforce.HTTPS());
 
 app.use('/', indexRouter);
 app.use('/login', indexRouter);
@@ -36,20 +37,6 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-// redirect to https
-app.use(function(req, res, next) {
-  var schema = req.headers['x-forwarded-proto'];
-
-  if (schema === 'https') {
-    // Already https; don't do anything special.
-    next();
-  }
-  else {
-    // Redirect to https.
-    res.redirect('https://' + req.headers.host + req.url);
-  }
 });
 
 module.exports = app;
