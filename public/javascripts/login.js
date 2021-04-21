@@ -2,12 +2,9 @@ $(() => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             // User is signed in, see docs for a list of available properties
-            var uid = user.uid;
-            window.location.replace("/")
             alert("Already logged in!")
+            window.location.replace("/")
             // ...
-        } else {
-            // User is signed out
         }
     });
 
@@ -26,6 +23,7 @@ $(() => {
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
+                $('#errorField').html(errorMessage)
             });
     })
 })
