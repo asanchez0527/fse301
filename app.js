@@ -17,7 +17,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(enforce.HTTPS({ trustProtoHeader: true }))
+
+if (process.argv[2] == 'prod') {
+  console.log("ran")
+  app.use(enforce.HTTPS({ trustProtoHeader: true }))
+}
 
 app.use('/', indexRouter);
 app.use('/login', indexRouter);
