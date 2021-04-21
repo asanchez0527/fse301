@@ -1,49 +1,61 @@
+const db = firebase.firestore()
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    // save current location to db
+    getLocation(user.uid)
+    setupJitsi(user.email, user.uid)
+  } else {
+    // User is signed out
+    window.location.replace("/login")
+  }
+});
+
+// jitsi setup
+function setupJitsi(email, uid) {
+  const domain = 'meet.jit.si';
+  const options = {
+    roomName: 'swagmaster69',
+    width: 800,
+    height: 600,
+    userInfo: {
+      email: email,
+      displayName: uid
+    },
+    configOverwrite: {
+      prejoinPageEnabled: false,
+      disableDeepLinking: true
+    },
+    parentNode: document.querySelector('#meet')
+  };
+  const api = new JitsiMeetExternalAPI(domain, options);
+  api.executeCommand('toggleVideo')
+}
+
+function getLocation(uid) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((pos) => { savePosition(pos, uid) });
+  } else {
+    console.log("Geolocation is not supported by this browser.")
+  }
+}
+
+function savePosition(position, uid) {
+  db.collection("location").doc(uid).set({
+    location: new firebase.firestore.GeoPoint(position.coords.latitude, position.coords.longitude)
+  })
+}
+
 $(() => {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      var uid = user.uid;
-      const db = firebase.firestore()
+  $('#trafficBtn').click(() => {
+    alert('traffic')
+  })
 
-      // save current location to db
-      getLocation()
+  $('#accidentBtn').click(() => {
+    alert('accident')
+  })
 
-      const domain = 'meet.jit.si';
-      const options = {
-        roomName: 'swagmaster69',
-        width: 800,
-        height: 600,
-        userInfo: {
-          email: user.email,
-          displayName: user.uid
-        },
-        configOverwrite: {
-          prejoinPageEnabled: false,
-          disableDeepLinking: true
-        },
-        parentNode: document.querySelector('#meet')
-      };
-      const api = new JitsiMeetExternalAPI(domain, options);
-      api.executeCommand('toggleVideo')
-
-      function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(savePosition);
-        } else {
-          console.log("Geolocation is not supported by this browser.")
-        }
-      }
-
-      function savePosition(position) {
-        db.collection("location").doc(user.uid).set({
-          location: new firebase.firestore.GeoPoint(position.coords.latitude, position.coords.longitude)
-        })
-        console.log("location saved")
-      }
-
-    } else {
-      // User is signed out
-      window.location.replace("/login")
-    }
-  });
+  $('#policeBtn').click(() => {
+    alert('police')
+  })
 })
