@@ -48,14 +48,26 @@ function savePosition(position, uid) {
 
 $(() => {
   $('#trafficBtn').click(() => {
-    alert('traffic')
+    db.collection("reports").doc('latest').set({ data: 'traffic' })
+    alert('success')
   })
 
   $('#accidentBtn').click(() => {
-    alert('accident')
+    db.collection("reports").doc('latest').set({ data: 'accident' })
+    alert('success')
   })
 
   $('#policeBtn').click(() => {
-    alert('police')
+    db.collection("reports").doc('latest').set({ data: 'police' })
+    alert('success')
   })
+
+  db.collection('reports').doc('latest').onSnapshot((doc) => {
+    var msg = new SpeechSynthesisUtterance((doc.data())['data']);
+    window.speechSynthesis.speak(msg);
+  })
+  // starCountRef.on('value', (snapshot) => {
+  //   const data = snapshot.val();
+  //   updateStarCount(postElement, data);
+  // });
 })
