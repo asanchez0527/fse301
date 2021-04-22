@@ -66,8 +66,4 @@ $(() => {
     var msg = new SpeechSynthesisUtterance((doc.data())['data']);
     window.speechSynthesis.speak(msg);
   })
-  // starCountRef.on('value', (snapshot) => {
-  //   const data = snapshot.val();
-  //   updateStarCount(postElement, data);
-  // });
 })
